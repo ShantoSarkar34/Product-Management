@@ -10,7 +10,7 @@ export default function Header() {
   const { theme, setTheme } = useTheme();
 
   return (
-    <header className="sticky top-0 z-50  bg-gray-800 text-white py-4">
+    <header className="sticky top-0 z-50  bg-gray-700 text-white py-4">
       <div className="mx-auto flex container items-center justify-between px-4">
         {/* Logo / Brand */}
         <Link href="/" className="text-xl font-bold text-yellow-500">
@@ -28,7 +28,7 @@ export default function Header() {
           <Link href="/login" className="hover:text-yellow-500">
             Login
           </Link>
-          <Link href="/dashboard/add-product" className="hover:text-yellow-500">
+          <Link href="/dashboard" className="hover:text-yellow-500">
             Dashboard
           </Link>
         </nav>
@@ -74,7 +74,7 @@ export default function Header() {
             Login
           </Link>
           <Link
-            href="/dashboard/add-product"
+            href="/dashboard"
             onClick={() => setMenuOpen(false)}
           >
             Dashboard
