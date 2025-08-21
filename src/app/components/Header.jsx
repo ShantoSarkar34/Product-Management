@@ -4,10 +4,16 @@ import Link from "next/link";
 import { useState } from "react";
 import { useTheme } from "next-themes";
 import { Sun, Moon, Menu, X } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const { theme, setTheme } = useTheme();
+  const router = useRouter();
+
+  const handleNavigate = () => {
+    router.push("/login");
+  };
 
   return (
     <header className="sticky top-0 z-50  bg-gray-700 text-white py-4">
@@ -25,38 +31,42 @@ export default function Header() {
           <Link href="/products" className="hover:text-yellow-500">
             Products
           </Link>
-          <Link href="/login" className="hover:text-yellow-500">
-            Login
-          </Link>
           <Link href="/dashboard" className="hover:text-yellow-500">
             Dashboard
           </Link>
         </nav>
 
-        {/* Right side: Theme toggle + mobile menu button */}
-        <div className="flex items-center gap-4">
-          {/* Theme toggle */}
-          <button
-            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-            className="rounded-full p-2 hover:bg-gray-200 dark:hover:bg-gray-700"
-          >
-            {theme === "dark" ? (
-              <Sun className="h-5 w-5" />
-            ) : (
-              <Moon className="h-5 w-5" />
-            )}
-          </button>
+        <div className="flex items-center gap-8">
+          {/* Right side: Theme toggle + mobile menu button */}
+          <div className="flex items-center gap-4">
+            {/* Theme toggle */}
+            <button
+              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+              className="rounded-full cursor-pointer p-2 "
+            >
+              {theme === "dark" ? (
+                <Sun className="text-lg text-amber-300" />
+              ) : (
+                <Moon className="text-lg text-gray-400" />
+              )}
+            </button>
 
-          {/* Mobile menu button */}
+            {/* Mobile menu button */}
+            <button
+              className="md:hidden cursor-pointer p-2 rounded "
+              onClick={() => setMenuOpen(!menuOpen)}
+            >
+              {menuOpen ? (
+                <X className="h-6 w-6" />
+              ) : (
+                <Menu className="h-6 w-6" />
+              )}
+            </button>
+          </div>
           <button
-            className="md:hidden p-2 rounded hover:bg-gray-200 dark:hover:bg-gray-700"
-            onClick={() => setMenuOpen(!menuOpen)}
-          >
-            {menuOpen ? (
-              <X className="h-6 w-6" />
-            ) : (
-              <Menu className="h-6 w-6" />
-            )}
+          onClick={handleNavigate}
+           className="py-3 px-10 rounded-lg cursor-pointer text-lg font-semibold border-none shadow-none text-[#111111] hover:text-white bg-[#ffbb38] hover:bg-[#e6a92f] transition">
+            LogIn
           </button>
         </div>
       </div>
@@ -70,13 +80,7 @@ export default function Header() {
           <Link href="/products" onClick={() => setMenuOpen(false)}>
             Products
           </Link>
-          <Link href="/login" onClick={() => setMenuOpen(false)}>
-            Login
-          </Link>
-          <Link
-            href="/dashboard"
-            onClick={() => setMenuOpen(false)}
-          >
+          <Link href="/dashboard" onClick={() => setMenuOpen(false)}>
             Dashboard
           </Link>
         </nav>

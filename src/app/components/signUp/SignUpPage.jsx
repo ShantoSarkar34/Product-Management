@@ -112,7 +112,7 @@ export default function SignUpPage() {
         <p className="text-center text-gray-600 mt-4">
           Already have an account?{" "}
           <a href="/login" className="text-yellow-500 font-semibold">
-            Sign In
+            Log In
           </a>
         </p>
       </motion.div>
