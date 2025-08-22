@@ -26,7 +26,7 @@ export const authOptions = {
     }),
   ],
   session: { strategy: "jwt" },
-  secret: process.env.NEXTAUTH_SECRET,
+  secret: 'aklfjasyfoikasdfklad8idodasd4fasdfdjfasdfd47dsad',
 };
 
 const handler = NextAuth(authOptions);
