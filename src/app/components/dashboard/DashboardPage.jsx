@@ -15,8 +15,12 @@ import {
   Bar,
 } from "recharts";
 import AddProduct from "./AddProduct";
+import { Plus } from "lucide-react/dist/cjs/lucide-react";
+import { useRouter } from "next/navigation";
 
 export default function DashboardPage() {
+
+  const router = useRouter();
   // Static user info
   const user = {
     name: "Md Shanto Sarkar",
@@ -41,6 +45,10 @@ export default function DashboardPage() {
 
   const COLORS = ["#FFBB38", "#0F0F0F80", "#FF6384", "#36A2EB", "#FFCE56"];
 
+  const handleNavigate=()=>{
+    router.push('/dashboard/addproduct')
+  }
+
   return (
     <div className="min-h-screen bg-gray-50 py-20">
       <div className="container mx-auto px-4">
@@ -56,17 +64,31 @@ export default function DashboardPage() {
               <h2 className="text-2xl lg:text-4xl font-bold mb-4 text-center text-[#FFBB38]">
                 User Info
               </h2>
-              <div className="flex flex-col sm:flex-row gap-6">
-                <div className="flex-1 border border-gray-400 rounded-2xl p-8">
-                  <p className="font-semibold text-lg lg:text-xl text-gray-800">
-                    Name :<span className="text-gray-500"> {user.name}</span>
-                  </p>
-                  <p className="font-semibold text-lg lg:text-xl text-gray-800">
-                    Email :<span className="text-gray-500"> {user.email}</span>
-                  </p>
-                  <p className="font-semibold text-lg lg:text-xl text-gray-800">
-                    Role :<span className="text-gray-500"> {user.role}</span>
-                  </p>
+              <div className="flex justify-between items-center border border-gray-400 rounded-2xl p-8">
+                <div className="flex flex-col sm:flex-row gap-6">
+                  <div className="flex-1 ">
+                    <p className="font-semibold text-lg lg:text-xl text-gray-800">
+                      Name :<span className="text-gray-500"> {user.name}</span>
+                    </p>
+                    <p className="font-semibold text-lg lg:text-xl text-gray-800">
+                      Email :
+                      <span className="text-gray-500"> {user.email}</span>
+                    </p>
+                    <p className="font-semibold text-lg lg:text-xl text-gray-800">
+                      Role :<span className="text-gray-500"> {user.role}</span>
+                    </p>
+                  </div>
+                </div>
+                <div className="  ">
+
+                <button
+                  type="button"
+                  onClick={handleNavigate}
+                  className=" flex items-center gap-2 cursor-pointer py-3 px-8 bg-[#FFBB38] hover:bg-[#eeac33] text-white font-semibold rounded-lg"
+                >
+                  <Plus/>
+                  Add Product
+                </button>
                 </div>
               </div>
             </motion.div>
@@ -96,33 +118,24 @@ export default function DashboardPage() {
                 </PieChart>
               </ResponsiveContainer>
             </div>
-
-            {/* Revenue Chart */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.2 }}
-              className="bg-white rounded-xl shadow-lg p-6 mb-8"
-            >
-              <h2 className="text-2xl font-bold mb-4">Revenue Overview</h2>
-              <ResponsiveContainer width="100%" height={250}>
-                <BarChart data={revenueData}>
-                  <XAxis dataKey="month" />
-                  <YAxis />
-                  <Tooltip />
-                  <Legend />
-                  <Bar dataKey="revenue" fill="#FFBB38" />
-                </BarChart>
-              </ResponsiveContainer>
-            </motion.div>
           </div>
-          {/* Add Product Form Section */}
+          {/* Revenue Chart */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.4 }}
+            transition={{ duration: 0.7, delay: 0.2 }}
+            className="bg-white rounded-xl shadow-lg p-6 mb-8"
           >
-            <AddProduct />
+            <h2 className="text-2xl font-bold mb-4">Revenue Overview</h2>
+            <ResponsiveContainer width="100%" height={250}>
+              <BarChart data={revenueData}>
+                <XAxis dataKey="month" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                <Bar dataKey="revenue" fill="#FFBB38" />
+              </BarChart>
+            </ResponsiveContainer>
           </motion.div>
         </div>
       </div>

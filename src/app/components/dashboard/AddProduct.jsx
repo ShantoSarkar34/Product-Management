@@ -16,27 +16,50 @@ export default function AddProduct() {
     ratings: "",
   });
 
+  const [loading, setLoading] = useState(false);
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Product Added:", formData);
-    toast.success("Product added successfully!");
-    setFormData({
-      name: "",
-      image: "",
-      description: "",
-      price: "",
-      category: "",
-      brand: "",
-      ratings: "",
+const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  try {
+    const response = await fetch("/api/products", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
     });
-  };
+
+    const data = await response.json();
+
+    if (response.ok) {
+      toast.success("Product added successfully!");
+      setFormData({
+        name: "",
+        image: "",
+        description: "",
+        price: "",
+        category: "",
+        brand: "",
+        ratings: "",
+      });
+    } else {
+      toast.error(data.error || "Failed to add product");
+    }
+  } catch (error) {
+    toast.error("Something went wrong!");
+    console.error("Error adding product:", error);
+  }
+};
+
+
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+    <div className="min-h-screen bg-gray-50 flex items-center justify-center py-20">
       <motion.div
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
@@ -115,9 +138,12 @@ export default function AddProduct() {
           />
           <button
             type="submit"
-            className="w-full cursor-pointer bg-yellow-400 hover:bg-yellow-500 transition-colors font-bold text-white p-3 rounded-md mt-2"
+            disabled={loading}
+            className={`w-full cursor-pointer ${
+              loading ? "bg-gray-400" : "bg-yellow-400 hover:bg-yellow-500"
+            } transition-colors font-bold text-white p-3 rounded-md mt-2`}
           >
-            Add Product
+            {loading ? "Adding..." : "Add Product"}
           </button>
         </form>
         <ToastContainer position="top-right" autoClose={2000} />
