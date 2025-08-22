@@ -1,12 +1,11 @@
 "use client";
 import { useState } from "react";
 import { motion } from "framer-motion";
-import {
-  EyeIcon,
-  LucideEyeClosed,
-} from "lucide-react/dist/cjs/lucide-react";
+import { EyeIcon, LucideEyeClosed } from "lucide-react/dist/cjs/lucide-react";
 import { toast, ToastContainer } from "react-toastify";
+import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import Swal from "sweetalert2";
 
 export default function Login() {
   const [loading, setLoading] = useState(false);
@@ -17,7 +16,7 @@ export default function Login() {
     setShow(!show);
   };
 
- const handleLogin = async (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
     setLoading(true);
 
@@ -34,12 +33,17 @@ export default function Login() {
     if (res?.error) {
       toast.error(res.error || "No account found");
     } else {
-      toast.success("Logged in successfully");
-      router.push("/"); // redirect
+      Swal.fire({
+        icon: "success",
+        title: "Success!",
+        text: "Logged in successfully!",
+        timer: 2000,
+        showConfirmButton: false,
+      });
+      router.push("/");
     }
     setLoading(false);
   };
-
 
   return (
     <section className="min-h-screen flex items-center justify-center bg-gradient-to-r from-yellow-50 via-white to-yellow-50 px-6">

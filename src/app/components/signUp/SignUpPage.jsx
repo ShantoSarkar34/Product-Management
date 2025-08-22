@@ -6,6 +6,7 @@ import { EyeIcon, LucideEyeClosed } from "lucide-react/dist/cjs/lucide-react";
 import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
 import { toast } from "react-toastify";
+import Swal from "sweetalert2";
 
 export default function SignUpPage() {
   const [loading, setLoading] = useState(false);
@@ -74,8 +75,14 @@ export default function SignUpPage() {
       if (loginRes?.error) {
         toast.error(loginRes.error);
       } else {
-        toast.success("Signup successful!");
-        router.push("/"); // redirect to home
+        Swal.fire({
+          icon: "success",
+          title: "Success!",
+          text: "SignUp in successfully!",
+          timer: 2000,
+          showConfirmButton: false,
+        });
+        router.push("/");
       }
     } catch (err) {
       console.error(err);

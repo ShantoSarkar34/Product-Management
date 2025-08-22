@@ -13,10 +13,6 @@ export default function Header() {
   const router = useRouter();
   const { data: session, status } = useSession();
 
-  console.log(session,status);
-  
-  // <button onClick={() => signOut({ callbackUrl: "/" })}>Logout</button>
-
   const handleNavigate = () => {
     router.push("/login");
   };
@@ -37,7 +33,7 @@ export default function Header() {
           <Link href="/products" className="hover:text-yellow-500">
             Products
           </Link>
-          <Link href="/dashboard" className="hover:text-yellow-500">
+          <Link href={`${status === "authenticated" ? '/dashboard' : '/login'}`} className="hover:text-yellow-500">
             Dashboard
           </Link>
         </nav>
@@ -69,11 +65,21 @@ export default function Header() {
               )}
             </button>
           </div>
-          <button
-          onClick={handleNavigate}
-           className="py-3 px-10 rounded-lg cursor-pointer text-lg font-semibold border-none shadow-none text-[#111111] hover:text-white bg-[#ffbb38] hover:bg-[#e6a92f] transition">
-            LogIn
-          </button>
+          {status === "authenticated" ? (
+            <button
+              onClick={() => signOut({ callbackUrl: "/" })}
+              className="py-3 px-10 rounded-lg cursor-pointer text-lg font-semibold border-none shadow-none text-[#111111] hover:text-white bg-[#ffbb38] hover:bg-[#e6a92f] transition"
+            >
+              Logout
+            </button>
+          ) : (
+            <button
+              onClick={handleNavigate}
+              className="py-3 px-10 rounded-lg cursor-pointer text-lg font-semibold border-none shadow-none text-[#111111] hover:text-white bg-[#ffbb38] hover:bg-[#e6a92f] transition"
+            >
+              LogIn
+            </button>
+          )}
         </div>
       </div>
 

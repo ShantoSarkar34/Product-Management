@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import {
   PieChart,
@@ -16,23 +16,52 @@ import {
 } from "recharts";
 import AddProduct from "./AddProduct";
 import { Plus } from "lucide-react/dist/cjs/lucide-react";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
 export default function DashboardPage() {
-
   const router = useRouter();
-  // Static user info
+  const { data: session } = useSession();
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [category, setCategory] = useState();
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const res = await fetch("/api/products");
+        const data = await res.json();
+        setProducts(data);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProducts();
+  }, []);
+
+  if (loading)
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <span className="loading loading-dots loading-xl"></span>
+      </div>
+    );
+
   const user = {
-    name: "Md Shanto Sarkar",
-    email: "shanto@example.com",
-    role: "Admin",
+    name: `${session?.user?.name}`,
+    email: `${session?.user?.email}`,
+    role: "User",
   };
 
   // Static product statistics for charts
   const productStats = [
     { name: "Health", value: 4 },
-    { name: "Electronics", value: 3 },
-    { name: "Clothing", value: 2 },
+    { name: "Electronics", value: 6 },
+    { name: "Clothing", value: 7 },
+    { name: "Appliances ", value: 6 },
+    { name: "Home Automation", value: 2 },
   ];
 
   const revenueData = [
@@ -43,11 +72,11 @@ export default function DashboardPage() {
     { month: "May", revenue: 6000 },
   ];
 
-  const COLORS = ["#FFBB38", "#0F0F0F80", "#FF6384", "#36A2EB", "#FFCE56"];
+  const COLORS = ["#0F5F0F80", "#FF6384", "#36A2EB", "#FFCf56", "#FF63c4"];
 
-  const handleNavigate=()=>{
-    router.push('/dashboard/addproduct')
-  }
+  const handleNavigate = () => {
+    router.push("/dashboard/addproduct");
+  };
 
   return (
     <div className="min-h-screen bg-gray-50 py-20">
@@ -80,22 +109,23 @@ export default function DashboardPage() {
                   </div>
                 </div>
                 <div className="  ">
-
-                <button
-                  type="button"
-                  onClick={handleNavigate}
-                  className=" flex items-center gap-2 cursor-pointer py-3 px-8 bg-[#FFBB38] hover:bg-[#eeac33] text-white font-semibold rounded-lg"
-                >
-                  <Plus/>
-                  Add Product
-                </button>
+                  <button
+                    type="button"
+                    onClick={handleNavigate}
+                    className=" flex items-center gap-2 cursor-pointer py-3 px-8 bg-[#FFBB38] hover:bg-[#eeac33] text-white font-semibold rounded-lg"
+                  >
+                    <Plus />
+                    Add Product
+                  </button>
                 </div>
               </div>
             </motion.div>
             <div className="flex-1 bg-white rounded-xl shadow-lg p-6 mb-8">
-              <p className="text-2xl font-bold mb-4">Product Categories</p>
+              <p className="text-2xl font-bold mb-4 text-gray-800">
+                Product Categories
+              </p>
               <ResponsiveContainer width="100%" height={250}>
-                <PieChart>
+                <PieChart className="focus:outline-none">
                   <Pie
                     data={productStats}
                     dataKey="value"
@@ -126,14 +156,20 @@ export default function DashboardPage() {
             transition={{ duration: 0.7, delay: 0.2 }}
             className="bg-white rounded-xl shadow-lg p-6 mb-8"
           >
-            <h2 className="text-2xl font-bold mb-4">Revenue Overview</h2>
-            <ResponsiveContainer width="100%" height={250}>
+            <h2 className="text-2xl font-bold mb-4 text-gray-800">
+              Revenue Overview
+            </h2>
+            <ResponsiveContainer
+              width="100%"
+              height={250}
+              className="lg:flex lg:items-center"
+            >
               <BarChart data={revenueData}>
                 <XAxis dataKey="month" />
                 <YAxis />
                 <Tooltip />
                 <Legend />
-                <Bar dataKey="revenue" fill="#FFBB38" />
+                <Bar dataKey="revenue" fill="#36A2EB" />
               </BarChart>
             </ResponsiveContainer>
           </motion.div>
