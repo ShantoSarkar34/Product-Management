@@ -21,7 +21,7 @@ This project is designed to manage product information efficiently. Users can:
 - Use a dynamic and responsive dashboard to visualize data with charts.
 - Log out and maintain secure sessions.
 
-The UI is designed with a clean, modern aesthetic using **TailwindCSS** and **Framer Motion** animations.
+The UI is designed with a clean, modern aesthetic using **TailwindCSS** and **Framer * animations.
 
 ---
 
@@ -46,7 +46,7 @@ The UI is designed with a clean, modern aesthetic using **TailwindCSS** and **Fr
   Fully responsive for mobile, tablet, and desktop devices.  
 
 - **Animations:**  
-  Smooth transitions and hover effects using **Framer Motion**.  
+  Smooth transitions and hover effects using **Framer *.  
 
 - **Secure Password Storage:**  
   Passwords are hashed using **bcrypt** before storing in MongoDB.  
@@ -62,7 +62,7 @@ The UI is designed with a clean, modern aesthetic using **TailwindCSS** and **Fr
   - Next.js 13 (App Router)  
   - React 18  
   - TailwindCSS & DaisyUI  
-  - Framer Motion (animations)  
+  - Framer (animations)  
   - React-Toastify (notifications)  
 
 - **Backend / Database:**  

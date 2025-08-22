@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { motion } from "framer-motion";
 import HeroIllustration1 from "../../../../public/hero.jpg";
 
 export default function Hero() {

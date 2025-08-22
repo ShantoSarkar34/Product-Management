@@ -1,6 +1,5 @@
 "use client";
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
 
 const Product = () => {
@@ -50,40 +49,27 @@ const Product = () => {
   return (
     <div className={`bg-[#f8f8f8] w-full py-20 transition-all duration-300`}>
       <div className="container mx-auto px-4">
-        <motion.h1
+        <h1
           className={`text-center font-semibold mb-4 text-3xl text-[#ffbb38]  `}
-          initial={{ opacity: 0, y: -30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
         >
           All Product
-        </motion.h1>
+        </h1>
 
-        <motion.p
+        <p
           className={`mb-10 lg:mb-14 text-center text-gray-700`}
-          initial={{ opacity: 0, y: -10 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.1 }}
         >
           Discover our premium collection of electronics, gadgets and
           essentials.
-        </motion.p>
+        </p>
 
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
           {currentProducts?.map((pro, index) => (
-            <motion.div
+            <div
               key={pro._id}
               className="border border-gray-500 rounded-md overflow-hidden flex flex-col items-center lg:items-start bg-white shadow-sm"
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{ duration: 0.4, delay: index * 0.05 }}
-              whileHover={{ scale: 1.02 }}
             >
               <div className="relative overflow-hidden bg-cover bg-no-repeat">
-                <motion.img
+                <img
                   src={pro.image}
                   alt="product"
                   className="hover:scale-110 ease-in-out transition-all duration-300 object-cover"
@@ -101,15 +87,15 @@ const Product = () => {
                 <p className="text-[#11111190] text-sm mb-4 mx-auto w-[80%] lg:w-full">
                   {pro.description}
                 </p>
-                <motion.button
+                <button
                   onClick={() => handleNavigate(pro._id)}
                   className="py-4 rounded-lg cursor-pointer text-lg font-semibold border-none shadow-none w-full text-[#111111] hover:text-white bg-[#ffbb38] hover:bg-[#e6a92f] transition"
                   whileTap={{ scale: 0.95 }}
                 >
                   View Details
-                </motion.button>
+                </button>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
 

@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
 import { EyeIcon, LucideEyeClosed } from "lucide-react/dist/cjs/lucide-react";
 import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
@@ -94,11 +93,8 @@ export default function SignUpPage() {
 
   return (
     <section className="min-h-screen flex items-center justify-center bg-gradient-to-r from-yellow-50 via-white to-yellow-50 px-6">
-      <motion.div
+      <div
         className="bg-white rounded-2xl shadow-2xl p-8 w-full max-w-md"
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
       >
         <h2 className="text-3xl font-bold text-center mb-6 text-gray-800">
           Create Your Account
@@ -154,14 +150,12 @@ export default function SignUpPage() {
             )}
           </div>
 
-          <motion.button
+          <button
             type="submit"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
             className="w-full bg-yellow-500 text-white font-semibold py-3 rounded-lg shadow-md hover:bg-yellow-600 transition"
           >
             {loading ? "Creating Account..." : "Sign Up"}
-          </motion.button>
+          </button>
         </form>
 
         <p className="text-center text-gray-600 mt-4">
@@ -170,7 +164,7 @@ export default function SignUpPage() {
             Log In
           </a>
         </p>
-      </motion.div>
+      </div>
     </section>
   );
 }

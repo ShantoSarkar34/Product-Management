@@ -1,7 +1,7 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { motion } from "framer-motion";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -17,6 +17,7 @@ export default function AddProduct() {
   });
 
   const [loading, setLoading] = useState(false);
+  const router = useRouter()
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -47,6 +48,7 @@ export default function AddProduct() {
           brand: "",
           ratings: "",
         });
+        router.push('/products')
       } else {
         toast.error(data.error || "Failed to add product");
       }
@@ -58,10 +60,7 @@ export default function AddProduct() {
 
   return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center py-20">
-      <motion.div
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7 }}
+      <div
         className="bg-white shadow-xl rounded-xl p-8 w-full max-w-2xl"
       >
         <h2 className="text-3xl font-bold mb-6 text-center text-gray-800">
@@ -152,7 +151,7 @@ export default function AddProduct() {
           </button>
         </form>
         <ToastContainer position="top-right" autoClose={2000} />
-      </motion.div>
+      </div>
     </div>
   );
 }

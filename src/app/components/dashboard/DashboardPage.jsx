@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
 import {
   PieChart,
   Pie,
@@ -84,10 +83,8 @@ export default function DashboardPage() {
         {/* User Summary Card */}
         <div className="grid grid-cols-2 gap-5">
           <div>
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7 }}
+            <div
+            
               className="bg-white rounded-xl shadow-lg p-6 mb-8"
             >
               <h2 className="text-2xl lg:text-4xl font-bold mb-4 text-center text-[#FFBB38]">
@@ -119,7 +116,7 @@ export default function DashboardPage() {
                   </button>
                 </div>
               </div>
-            </motion.div>
+            </div>
             <div className="flex-1 bg-white rounded-xl shadow-lg p-6 mb-8">
               <p className="text-2xl font-bold mb-4 text-gray-800">
                 Product Categories
@@ -150,10 +147,7 @@ export default function DashboardPage() {
             </div>
           </div>
           {/* Revenue Chart */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.2 }}
+          <div
             className="bg-white rounded-xl shadow-lg p-6 mb-8"
           >
             <h2 className="text-2xl font-bold mb-4 text-gray-800">
@@ -172,7 +166,7 @@ export default function DashboardPage() {
                 <Bar dataKey="revenue" fill="#36A2EB" />
               </BarChart>
             </ResponsiveContainer>
-          </motion.div>
+          </div>
         </div>
       </div>
     </div>
