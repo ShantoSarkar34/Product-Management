@@ -1,36 +1,80 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Product Management
 
-## Getting Started
+A modern **Product Management** web application built with **Next.js 13**, **MongoDB**, and **TailwindCSS**. This platform allows users to manage products, view product details, and track product data through a responsive and interactive dashboard.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 🌐 Live Demo
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Check the live site here: [Product Management Live](https://product-management9070.vercel.app/)
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 📄 Description
 
-## Learn More
+This project is designed to manage product information efficiently. Users can:
 
-To learn more about Next.js, take a look at the following resources:
+- Sign up and log in securely.
+- Add new products to the system.
+- View all products in a paginated list.
+- Access detailed information for each product.
+- Use a dynamic and responsive dashboard to visualize data with charts.
+- Log out and maintain secure sessions.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+The UI is designed with a clean, modern aesthetic using **TailwindCSS** and **Framer Motion** animations.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## ⚡ Key Features
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- **User Authentication:**  
+  Sign up and login using email and password, with automatic login after signup.  
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **Product Management:**  
+  Add new products with details like name, image, description, price, category, brand, and ratings.  
+
+- **Product Listing:**  
+  View all products in a paginated grid with smooth animations.  
+
+- **Product Details:**  
+  Access individual product details via unique URLs (`/products/details/:id`).  
+
+- **Dashboard:**  
+  Interactive dashboard with charts (pie chart, bar chart) showing products and user data.  
+
+- **Responsive Design:**  
+  Fully responsive for mobile, tablet, and desktop devices.  
+
+- **Animations:**  
+  Smooth transitions and hover effects using **Framer Motion**.  
+
+- **Secure Password Storage:**  
+  Passwords are hashed using **bcrypt** before storing in MongoDB.  
+
+- **Session Management:**  
+  Uses **NextAuth.js** for session management and secure login/logout functionality.
+
+---
+
+## 🛠 Tools & Technologies
+
+- **Frontend:**  
+  - Next.js 13 (App Router)  
+  - React 18  
+  - TailwindCSS & DaisyUI  
+  - Framer Motion (animations)  
+  - React-Toastify (notifications)  
+
+- **Backend / Database:**  
+  - Node.js & Express (optional API server)  
+  - MongoDB Atlas (cloud database)  
+
+- **Authentication:**  
+  - NextAuth.js (credentials provider)  
+  - Bcrypt (password hashing)  
+
+- **Others:**  
+  - Vercel deployment  
+  - Git & GitHub for version control  
+
+---
