@@ -1,4 +1,3 @@
-// src/app/api/register/route.js
 import { connectDB } from "@/app/lib/connectDB";
 import bcrypt from "bcrypt";
 

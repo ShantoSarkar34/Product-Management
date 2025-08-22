@@ -17,7 +17,6 @@ export const POST = async (req) => {
     if (!isValid) {
       return NextResponse.json({ error: "Invalid password" }, { status: 401 });
     }
-
     // Optional: create a session or token here
     return NextResponse.json({ message: "Login successful", user }, { status: 200 });
   } catch (error) {
