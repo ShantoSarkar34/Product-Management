@@ -3,10 +3,16 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { EyeIcon, LucideEyeClosed } from "lucide-react/dist/cjs/lucide-react";
+import { useRouter } from "next/navigation";
+import { signIn } from "next-auth/react";
+import { toast } from "react-toastify";
 
 export default function SignUpPage() {
   const [loading, setLoading] = useState(false);
   const [show, setShow] = useState(true);
+  const [passError, setPassError] = useState("");
+  const [nameError, setNameError] = useState("");
+  const router = useRouter();
 
   const handleShow = () => {
     setShow(!show);
@@ -17,27 +23,63 @@ export default function SignUpPage() {
     setLoading(true);
 
     const formData = new FormData(e.target);
-    const user = {
-      name: formData.get("name"),
-      email: formData.get("email"),
-      password: formData.get("password"),
-    };
+    const name = formData.get("name");
+    const email = formData.get("email");
+    const password = formData.get("password");
+    // validation
+    if (name.length < 5) {
+      setNameError("Name should be more than 5 characters");
+      return;
+    } else {
+      setNameError("");
+    }
+
+    if (password.length < 6) {
+      setPassError("Password must be at least 6 characters long");
+      return;
+    }
+    if (!/[A-Z]/.test(password)) {
+      setPassError("Password must contain at least one uppercase letter");
+      return;
+    }
+    if (!/[a-z]/.test(password)) {
+      setPassError("Password must contain at least one lowercase letter");
+      return;
+    } else {
+      setPassError("");
+    }
 
     try {
       const res = await fetch("/api/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(user),
+        body: JSON.stringify({ name, email, password }),
       });
 
-      if (res.ok) {
-        alert("Account created successfully! Now you can log in.");
+      const data = await res.json();
+
+      if (!res.ok) {
+        toast.error(data.error || "Signup failed");
+        setLoading(false);
+        return;
+      }
+
+      // Auto login after signup
+      const loginRes = await signIn("credentials", {
+        redirect: false,
+        email,
+        password,
+      });
+
+      if (loginRes?.error) {
+        toast.error(loginRes.error);
       } else {
-        alert("Error creating account.");
+        toast.success("Signup successful!");
+        router.push("/"); // redirect to home
       }
     } catch (err) {
       console.error(err);
-      alert("Something went wrong.");
+      toast.error("Something went wrong");
     } finally {
       setLoading(false);
     }
@@ -64,8 +106,11 @@ export default function SignUpPage() {
               type="text"
               name="name"
               required
-              className="w-full border rounded-lg px-4 py-3 focus:ring-2 focus:ring-yellow-400 outline-none"
+              className="w-full border border-black text-gray-800 rounded-lg py-3 px-4  focus:border-yellow-400 outline-none"
             />
+            {nameError && (
+              <p className="text-sm text-red-500 mt-1">{nameError}</p>
+            )}
           </div>
 
           <div>
@@ -76,7 +121,7 @@ export default function SignUpPage() {
               type="email"
               name="email"
               required
-              className="w-full border rounded-lg px-4 py-3 focus:ring-2 focus:ring-yellow-400 outline-none"
+              className="w-full border border-black text-gray-800 rounded-lg py-3 px-4  focus:border-yellow-400 outline-none"
             />
           </div>
 
@@ -95,8 +140,11 @@ export default function SignUpPage() {
               type={show ? "password" : "text"}
               name="password"
               required
-              className="w-full border rounded-lg px-4 py-3 focus:ring-2 focus:ring-yellow-400 outline-none"
+              className="w-full border border-black text-gray-800 rounded-lg py-3 px-4  focus:border-yellow-400 outline-none"
             />
+            {passError && (
+              <p className="text-sm text-red-500 mt-1">{passError}</p>
+            )}
           </div>
 
           <motion.button

@@ -1,15 +1,21 @@
 "use client";
-
 import Link from "next/link";
 import { useState } from "react";
 import { useTheme } from "next-themes";
 import { Sun, Moon, Menu, X } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
+import { signOut } from "next-auth/react";
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const { theme, setTheme } = useTheme();
   const router = useRouter();
+  const { data: session, status } = useSession();
+
+  console.log(session,status);
+  
+  // <button onClick={() => signOut({ callbackUrl: "/" })}>Logout</button>
 
   const handleNavigate = () => {
     router.push("/login");

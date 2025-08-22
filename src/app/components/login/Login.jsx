@@ -1,52 +1,45 @@
 "use client";
-
 import { useState } from "react";
 import { motion } from "framer-motion";
 import {
-  EyeClosed,
-  EyeClosedIcon,
   EyeIcon,
   LucideEyeClosed,
 } from "lucide-react/dist/cjs/lucide-react";
+import { toast, ToastContainer } from "react-toastify";
+import { useRouter } from "next/navigation";
 
 export default function Login() {
   const [loading, setLoading] = useState(false);
   const [show, setShow] = useState(true);
+  const router = useRouter();
 
   const handleShow = () => {
     setShow(!show);
   };
 
-  const handleSignUp = async (e) => {
+ const handleLogin = async (e) => {
     e.preventDefault();
     setLoading(true);
 
     const formData = new FormData(e.target);
-    const user = {
-      name: formData.get("name"),
-      email: formData.get("email"),
-      password: formData.get("password"),
-    };
+    const email = formData.get("email");
+    const password = formData.get("password");
 
-    try {
-      const res = await fetch("/api/register", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(user),
-      });
+    const res = await signIn("credentials", {
+      redirect: false,
+      email,
+      password,
+    });
 
-      if (res.ok) {
-        alert("Account created successfully! Now you can log in.");
-      } else {
-        alert("Error creating account.");
-      }
-    } catch (err) {
-      console.error(err);
-      alert("Something went wrong.");
-    } finally {
-      setLoading(false);
+    if (res?.error) {
+      toast.error(res.error || "No account found");
+    } else {
+      toast.success("Logged in successfully");
+      router.push("/"); // redirect
     }
+    setLoading(false);
   };
+
 
   return (
     <section className="min-h-screen flex items-center justify-center bg-gradient-to-r from-yellow-50 via-white to-yellow-50 px-6">
@@ -60,7 +53,7 @@ export default function Login() {
           Create Your Account
         </h2>
 
-        <form onSubmit={handleSignUp} className="space-y-5">
+        <form onSubmit={handleLogin} className="space-y-5">
           <div>
             <label className="block text-gray-700 font-medium mb-1">
               Email Address
@@ -69,7 +62,7 @@ export default function Login() {
               type="email"
               name="email"
               required
-              className="w-full border rounded-lg px-4 py-3 focus:ring-2 focus:ring-yellow-400 outline-none"
+              className="w-full border border-black text-gray-800 rounded-lg py-3 px-4  focus:border-yellow-400 outline-none"
             />
           </div>
 
@@ -88,7 +81,7 @@ export default function Login() {
               type={show ? "password" : "text"}
               name="password"
               required
-              className="w-full border rounded-lg px-4 py-3 focus:ring-2 focus:ring-yellow-400 outline-none"
+              className="w-full border border-black text-gray-800 rounded-lg py-3 px-4  focus:border-yellow-400 outline-none"
             />
           </div>
 
@@ -98,14 +91,14 @@ export default function Login() {
             whileTap={{ scale: 0.95 }}
             className="w-full cursor-pointer bg-yellow-500 text-white font-semibold py-3 rounded-lg shadow-md hover:bg-yellow-600 transition"
           >
-            {loading ? "Creating Account..." : "Log In"}
+            {loading ? "Login Account..." : "Log In"}
           </motion.button>
         </form>
 
         <p className="text-center text-gray-600 mt-4">
           Already have an account?{" "}
           <a href="/signin" className="text-yellow-500 font-semibold">
-            Sign In
+            Sign Up
           </a>
         </p>
       </motion.div>
