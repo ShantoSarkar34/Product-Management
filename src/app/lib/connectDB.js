@@ -17,6 +17,6 @@ export const connectDB = async () => {
   });
 
   await client.connect();
-  db = client.db("products"); // Your database name
+  db = client.db("products");
   return db;
 };
