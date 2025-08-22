@@ -38,9 +38,9 @@ const Product = () => {
     router.push(`/products/details/${id}`);
   };
 
-  const totalPages = Math.ceil(products.length / itemsPerPage);
+  const totalPages = Math.ceil(products?.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
-  const currentProducts = products.slice(startIndex, startIndex + itemsPerPage);
+  const currentProducts = products?.slice(startIndex, startIndex + itemsPerPage);
 
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
@@ -72,7 +72,7 @@ const Product = () => {
         </motion.p>
 
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
-          {currentProducts.map((pro, index) => (
+          {currentProducts?.map((pro, index) => (
             <motion.div
               key={pro._id}
               className="border border-gray-500 rounded-md overflow-hidden flex flex-col items-center lg:items-start bg-white shadow-sm"
