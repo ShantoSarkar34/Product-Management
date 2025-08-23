@@ -6,53 +6,44 @@ A modern **Product Management** web application built with **Next.js 13**, **Mon
 
 ## 🌐 Live Demo
 
-Check the live site here: [Product Management Live](https://product-management9070.vercel.app/)
+[**Live Site**](https://product-management-site.vercel.app)
 
 ---
 
 ## 📄 Description
 
-This project is designed to manage product information efficiently. Users can:
+This project provides a complete solution for managing product information. It includes **user authentication**, **CRUD operations for products**, and an **interactive dashboard** for data visualization.
 
-- Sign up and log in securely.
-- Add new products to the system.
-- View all products in a paginated list.
-- Access detailed information for each product.
-- Use a dynamic and responsive dashboard to visualize data with charts.
-- Log out and maintain secure sessions.
-
-The UI is designed with a clean, modern aesthetic using **TailwindCSS** and **Framer * animations.
+**Users can:**
+- Register and log in securely.
+- Add, view, and manage products.
+- Access detailed product information.
+- View analytics through a dashboard with charts.
 
 ---
 
 ## ⚡ Key Features
 
 - **User Authentication:**  
-  Sign up and login using email and password, with automatic login after signup.  
+  Secure signup and login using email/password with hashed passwords.
 
 - **Product Management:**  
-  Add new products with details like name, image, description, price, category, brand, and ratings.  
+  Add new products with name, description, price, image, category, brand, and ratings.
 
 - **Product Listing:**  
-  View all products in a paginated grid with smooth animations.  
+  Display all products in a paginated and responsive grid.
 
 - **Product Details:**  
-  Access individual product details via unique URLs (`/products/details/:id`).  
+  View individual product details via dynamic routes (`/products/details/:id`).
 
 - **Dashboard:**  
-  Interactive dashboard with charts (pie chart, bar chart) showing products and user data.  
+  Interactive dashboard with visual charts (pie chart, bar chart) for product and user data.
 
-- **Responsive Design:**  
-  Fully responsive for mobile, tablet, and desktop devices.  
-
-- **Animations:**  
-  Smooth transitions and hover effects using **Framer *.  
-
-- **Secure Password Storage:**  
-  Passwords are hashed using **bcrypt** before storing in MongoDB.  
+- **Responsive UI:**  
+  Fully responsive layout using TailwindCSS and animations with Framer Motion.
 
 - **Session Management:**  
-  Uses **NextAuth.js** for session management and secure login/logout functionality.
+  Uses **NextAuth.js** for secure authentication.
 
 ---
 
@@ -62,19 +53,35 @@ The UI is designed with a clean, modern aesthetic using **TailwindCSS** and **Fr
   - Next.js 13 (App Router)  
   - React 18  
   - TailwindCSS & DaisyUI  
-  - Framer (animations)  
+  - Framer Motion (animations)  
   - React-Toastify (notifications)  
 
 - **Backend / Database:**  
-  - Node.js & Express (optional API server)  
   - MongoDB Atlas (cloud database)  
 
 - **Authentication:**  
-  - NextAuth.js (credentials provider)  
-  - Bcrypt (password hashing)  
+  - NextAuth.js (Credentials Provider)  
+  - Bcrypt for password hashing  
 
-- **Others:**  
-  - Vercel deployment  
-  - Git & GitHub for version control  
+- **Deployment:**  
+  - Vercel for hosting  
 
 ---
+## 📌 API Routes Summary
+-**Method**	**Endpoint**	**Description**
+-GET	 /api/product	      -Get all products from the database
+-POST 	/api/product	    -Add a new product
+-POST	 /api/register	    -Register a new user
+-POST 	/api/login	      -Log in a user
+-GET	 /api/auth/session	-Get current user session
+
+
+
+## ✅ Setup & Installation Instructions
+
+Follow these steps to run the project locally:
+
+### 1. Clone the repository
+```bash
+git clone https://github.com/ShantoSarkar34/product-management.git
+cd product-management
